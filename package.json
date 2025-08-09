@@ -1,0 +1,31 @@
+{
+  "name": "p2p-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec \"ts-node\" src/server.ts",
+    "lint": "eslint 'src/**/*.ts'"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.10",
+    "@types/ws": "^8.18.1",
+    "dotenv": "^17.0.1",
+    "eslint": "^9.30.1",
+    "express": "^5.1.0",
+    "install": "^0.13.0",
+    "nodemon": "^3.1.10",
+    "npm": "^10.9.3",
+    "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@dotenvx/dotenvx": "^1.45.2",
+    "flatted": "^3.3.3",
+    "nanoid": "^3.3.4",
+    "ws": "^8.18.3"
+  }
+}
