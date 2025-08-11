@@ -15,4 +15,6 @@ app.use(errorHandler);
 
 app.use('/lobbies', LobbyRoute);
 
+app.set('trust proxy', true);
+
 export default app;
