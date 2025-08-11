@@ -72,14 +72,17 @@ export function quitLobbyService(lobbyId: string, playerId: string) {
 
     let lobby = lobbies[indexLobby];
     let indexPlayer = lobby.players.findIndex(player => player.id === playerId);
-    let indexConnection = Object.keys(lobby.connections).findIndex(id => id === playerId);
+    let hasConnection = Object.keys(lobby.connections).some(id => id === playerId);
 
-    if (indexConnection === -1 && indexPlayer === -1)
+    if (!hasConnection && indexPlayer === -1)
         throw new HttpError(404, "Player id not found in lobby");
 
-    delete lobby.connections[playerId];
+    if (hasConnection)
+        delete lobby.connections[playerId];
 
-    lobby.players.splice(indexPlayer, 1);
+    if (indexPlayer !== -1)
+        lobby.players.splice(indexPlayer, 1);
+
     if (lobby.players.length === 0)
         lobbies.splice(indexLobby, 1);
 
