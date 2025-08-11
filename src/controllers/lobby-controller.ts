@@ -68,10 +68,12 @@ export const sendSDP = (req: Request, res: Response, next: NextFunction): void =
 
 export const sendIceCandidate = (req: Request, res: Response, next: NextFunction): void => {
   try {
+    console.log("Received ICE candidate payload:", req.body);
     let { lobby_id, player_id, ice_candidates, is_host } = req.body;
     updateLobbyIceCandidateService(lobby_id, player_id, ice_candidates, is_host);
     res.sendStatus(200);
   } catch (error) {
+    console.error("Error in sendIceCandidate:", error);
     next(error);
   }
 };
