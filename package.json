@@ -9,6 +9,7 @@
     "lint": "eslint 'src/**/*.ts'"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.10",
     "@types/ws": "^8.18.1",
@@ -24,6 +25,7 @@
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.45.2",
+    "cors": "^2.8.5",
     "flatted": "^3.3.3",
     "nanoid": "^3.3.4",
     "ws": "^8.18.3"
