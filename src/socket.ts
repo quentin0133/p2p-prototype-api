@@ -5,6 +5,8 @@ import WebSocket, { WebSocketServer } from 'ws';
 import { ExtendedWebSocket } from './types/extended-websocket';
 
 export function handleWebSocket(wss: WebSocketServer) {
+  console.log("WS on")
+
   const interval = setInterval(() => {
     wss.clients.forEach((ws: WebSocket) => {
       let wsExtended = ws as ExtendedWebSocket
