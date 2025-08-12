@@ -20,6 +20,11 @@ export function fetchLobbies(): Lobby[] {
     return lobbies;
 }
 
+export function fetchLobbyById(lobbyId: string): Lobby {
+    const indexLobby = getLobbyIndexById(lobbyId);
+    return lobbies[indexLobby];
+}
+
 export function createLobbyService(lobby: Lobby): Lobby {
     lobby.id = nanoid(6);
     lobby.connections = {};

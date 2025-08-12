@@ -2,7 +2,7 @@ import {
   connectionEstablishedService,
   createLobbyService,
   deleteLobbyService,
-  fetchLobbies,
+  fetchLobbies, fetchLobbyById,
   joinLobbyService,
   quitLobbyService,
   updateLobbyIceCandidateService,
@@ -14,6 +14,16 @@ export const retrieveLobby = (req: Request, res: Response, next: NextFunction): 
   try {
     let lobbies = fetchLobbies();
     res.status(200).json(lobbies);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const retrieveLobbyById = (req: Request, res: Response, next: NextFunction): void => {
+  try {
+    let { lobby_id } = req.body;
+    let lobby = fetchLobbyById(lobby_id);
+    res.status(200).json(lobby);
   } catch (error) {
     next(error);
   }
@@ -68,12 +78,10 @@ export const sendSDP = (req: Request, res: Response, next: NextFunction): void =
 
 export const sendIceCandidate = (req: Request, res: Response, next: NextFunction): void => {
   try {
-    console.log("Received ICE candidate payload:", req.body);
     let { lobby_id, player_id, ice_candidates, is_host } = req.body;
     updateLobbyIceCandidateService(lobby_id, player_id, ice_candidates, is_host);
     res.sendStatus(200);
   } catch (error) {
-    console.error("Error in sendIceCandidate:", error);
     next(error);
   }
 };
