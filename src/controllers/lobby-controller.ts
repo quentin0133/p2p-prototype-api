@@ -1,4 +1,5 @@
 import {
+  broadcastLobbyService,
   connectionEstablishedService,
   createLobbyService,
   deleteLobbyService,
@@ -14,16 +15,6 @@ export const retrieveLobby = (req: Request, res: Response, next: NextFunction): 
   try {
     let lobbies = fetchLobbies();
     res.status(200).json(lobbies);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const retrieveLobbyById = (req: Request, res: Response, next: NextFunction): void => {
-  try {
-    let { lobby_id } = req.body;
-    let lobby = fetchLobbyById(lobby_id);
-    res.status(200).json(lobby);
   } catch (error) {
     next(error);
   }
@@ -47,6 +38,16 @@ export const joinLobby = (req: Request, res: Response, next: NextFunction): void
     next(error);
   }
 };
+
+export const broadcastLobby = (req: Request, res: Response, next: NextFunction): void => {
+  try {
+    let { lobby_id, from_id, to_id } = req.body;
+    broadcastLobbyService(lobby_id, from_id, to_id);
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+}
 
 export const quitLobby = (req: Request, res: Response, next: NextFunction): void => {
   try {

@@ -10,6 +10,7 @@ import { IceCandidate } from '../models/ice-candidate';
 import { SDPType } from '../types/sdp-type';
 import { PeerConnectionInfo } from '../models/peer-connection-info';
 import { generateId } from '../utils/ids';
+import { broadcastLobby } from '../controllers/lobby-controller';
 
 const lobbies: Lobby[] = [];
 const oldLobbies: Lobby[] = [];
@@ -40,6 +41,13 @@ export function createLobbyService(lobby: Lobby): Lobby {
     return lobby;
 }
 
+export function broadcastLobbyService(lobbyId: string, fromId: string, toId: string) {
+    const indexLobby = getLobbyIndexById(lobbyId);
+    const lobby = lobbies[indexLobby];
+
+    broadcastLobbies({ updated: lobby, from_id: fromId, to_id: toId })
+}
+
 export function joinLobbyService(lobbyId: string, player: Player, pwd: string) {
     const indexLobby = getLobbyIndexById(lobbyId);
     const lobby = lobbies[indexLobby];
@@ -64,8 +72,6 @@ export function joinLobbyService(lobbyId: string, player: Player, pwd: string) {
     };
 
     lobbies[indexLobby] = lobby;
-
-    broadcastLobbies({ updated: lobby, from_id: player.id, to_id: lobby.host_player.id });
 
     return lobby;
 }
